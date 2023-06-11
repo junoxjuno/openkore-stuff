@@ -1,0 +1,6 @@
+automacro onSpawn {
+	console /Auto-storaging due to insufficient Great Nature/
+	call {
+		do c @go umbala
+	}
+}

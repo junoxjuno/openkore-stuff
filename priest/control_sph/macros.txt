@@ -1,0 +1,129 @@
+##########
+# MOSCOVIA MACRO, DO NOT DELETE
+##########
+automacro onShipTalk {
+	console /Find#ship: Stop by the whale island?/
+	exclusive 1
+
+	call {
+		do talk resp 0
+		release all
+	}
+}
+
+# ---- mosk_fild01 - mosk_fild02 -----
+automacro mfild02 {
+	location mosk_fild01
+	run-once 0
+	timeout 30
+	call mf02
+}
+macro mf02 {
+	do ai manual
+	do move 90 104
+	pause 2
+	do talknpc 86 104 c c r2 c c c r1 c c
+	do ai auto
+	do conf follow 1
+	release mfild02
+}
+
+automacro inMoskFild02 {
+	location mosk_fild02
+	timeout 30
+	call {
+		do ai auto
+	}
+}
+
+
+automacro inMoskDun01 {
+	location moscovia
+	timeout 30
+	call {
+		do ai auto
+	}
+}
+
+automacro stuckMosc {
+	console /Calculating route to find master: mosk_dun01/
+	location moscovia
+	run-once 0
+	timeout 5
+	call unstuckMosc
+}
+
+macro unstuckMosc {
+	do conf follow 0
+	do conf lockMap mosk_dun01
+	do move mosk_fild01
+	release unstuckMosc
+}
+
+
+#######
+# END MOSCOVIA MACRO
+#######
+
+
+automacro onPartySayGo {
+	party /goto (.*)/
+	timeout 10
+
+	call {
+		do c @go $.lastMatch1
+	}
+}
+
+
+automacro onLowSP {
+	sp < 30%
+	timeout 30
+
+	call {
+		do e sp
+	}
+}
+automacro onAllyEmote {
+	console /(.*) (.*) (.*): \*Good Game\**/i
+	exclusive 1
+	call doBuff
+}
+
+automacro onAllyEmoteFlag {
+	console /(.*) (.*) (.*): \*Flag 3\**/i
+	exclusive 1
+	call doBuffFlag
+}
+
+macro doBuff {
+	do e flg5
+	do sp Suffragium "$.lastMatch2" 3
+}
+
+macro doBuffFlag {
+	do e flg4
+	do sp 34 "$.lastMatch2" 10
+	do sp 29 "$.lastMatch2" 10
+	do sp 66 "$.lastMatch2" 5
+	do sp 73 "$.lastMatch2" 7
+}
+
+
+automacro onMastCast {
+	console /Player Mast (.*) is casting Fire Bolt on Monster Wood Goblin \((.*)\) \(Delay/i
+	exclusive 1
+	call {
+		do sm 78 $.lastMatch2 1
+		do e mail
+	}
+}
+
+automacro onPartyAtStorage {
+	party /im at storage (.*)/
+
+	call {
+		do c @go $.lastMatch1
+	}
+}
+

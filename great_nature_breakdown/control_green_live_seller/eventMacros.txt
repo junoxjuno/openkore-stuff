@@ -1,0 +1,30 @@
+automacro hasGreatNatureInventory {
+    InMap umbala
+    InInventory "Great Nature" > 0
+    timeout 15
+	StorageOpened 0
+    call downgradeMoveAction
+}
+
+macro downgradeMoveAction {
+	do e gg
+	do ai manual
+	do ss 29
+	do move 219 188
+	do ai auto
+}
+
+automacro hasGreatNatureInventoryInside {
+    InMap um_in
+    InInventory "Great Nature" > 0
+    timeout 15
+	StorageOpened 0
+    call downgradeAction
+}
+
+macro downgradeAction {
+	do e heh
+	do ai manual
+	do talknpc 44 71 r1 r0 d10 d2
+	do ai auto
+}

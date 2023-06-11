@@ -1,0 +1,140 @@
+######### MANUK ENTRY ###########
+automacro cannotCalculateRandRoute {
+	console /Cannot calculate a route from/
+	location not geffen
+
+	call {
+		do tele
+	}
+}
+
+automacro readyEnterManuk {
+	location geffen
+	weight < 49%
+	inventory "Fire Arrow" > 50
+	timeout 15
+	exclusive 0
+
+	call entryManuk
+}
+
+macro entryManuk {
+	$inStorage = @eval(AI::inQueue("storageAuto"))
+	$inBuy = @eval(AI::inQueue("buyAuto"))
+	if ($inStorage != 1 && $inBuy != 1) {
+		do storage close
+		do ai manual
+		do c @go geffen
+		do move 118 58
+		pause 1
+		do g barp me
+	} else {
+		# do nothing
+		stop
+	}
+}
+
+
+automacro onWarpReady {
+	location geffen
+	guild /Beast moveto (.*)/
+	exclusive 1
+	timeout 3
+	call {
+		do ss 45
+		do ss 383
+		do ss 380
+		do talknpc 115 72 c n
+		pause 1
+		do move $.lastMatch1
+		do ai auto
+	}
+}
+
+
+automacro autoNotInGeffen {
+	location not geffen
+	timeout 30
+
+	call {
+		do ai auto
+	}
+}
+
+automacro removeLockMapIfGeffen {
+	location geffen
+	timeout 30
+
+	call {
+		do conf lockMap none
+	}
+}
+
+automacro setLockMapMidCamp {
+	location mid_camp
+	timeout 30
+
+	call {
+		do conf lockMap man_fild02
+	}
+}
+######### END MANUK ENTRY ###########
+
+
+automacro onAutoStorageLockMap {
+	console /Calculating auto-storage route to:/
+	location not geffen
+
+	call {
+		do c @go geffen
+	}
+}
+
+
+automacro onAutoBuy {
+	console /Calculating auto-buy route to:/
+	location not geffen
+
+	call {
+		do c @go geffen
+	}
+}
+
+automacro lowHPAtFight {
+	hp < 2000
+	location not geffen
+	timeout 5
+	exclusive 1
+
+	call {
+		pause 1
+		do c @go geffen
+		do move 118 59
+		do talknpc 115 72
+	}
+}
+
+
+automacro lowSPAtFight {
+	sp < 100
+	location not geffen
+	timeout 5
+	exclusive 1
+
+	call {
+		pause 1
+		do c @go geffen
+		do move 118 59
+		do talknpc 115 72
+	}
+}
+
+automacro deadOutsideTown {
+	console /You have died/
+	location not geffen
+	timeout 5
+
+	call {
+		do c @go geffen
+	}
+}

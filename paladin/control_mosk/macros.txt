@@ -1,0 +1,105 @@
+##########
+# MOSCOVIA MACRO, DO NOT DELETE
+##########
+automacro onShipTalk {
+	console /Find#ship: Stop by the whale island?/
+
+	call {
+		do talk resp 0
+		release all
+	}
+}
+
+# ---- mosk_fild01 - mosk_fild02 -----
+automacro mfild02 {
+	location mosk_fild01
+	run-once 0
+	timeout 30
+	call mf02
+}
+macro mf02 {
+	do ai manual
+	do move 90 104
+	pause 2
+	do talknpc 86 104 c c r2 c c c r1 c c
+	do ai auto
+	release mfild02
+}
+
+
+automacro stuckMosc {
+	console /Calculating route to find master: mosk_dun01/
+	location moscovia 136 50
+	run-once 0
+	timeout 30
+	call {
+		do ai manual
+		do move moscovia 150 63
+		do move mosk_fild01
+		pause 15
+		do ai auto
+	}
+}
+
+#######
+# END MOSCOVIA MACRO
+#######
+
+
+automacro onAutoStorageLockMap {
+	console /Calculating auto-storage route to:/
+	location mosk_dun01
+
+	call {
+		do c @go moscovia
+	}
+}
+
+
+automacro onEinbrochSpawn {
+	map einbroch
+	timeout 20
+
+	call {
+		do c @go einbech
+	}
+}
+
+
+automacro onPartySayGo {
+	party /goto (.*)/
+	timeout 10
+
+	call {
+		do c @go $.lastMatch1
+	}
+}
+
+automacro onCast {
+	console /You are casting (.*) on Monster (.*)*/i
+	exclusive 1
+	call doEmote
+}
+
+ macro doEmote {
+	do e gg
+ }
+
+
+automacro onPartyAtStorage {
+	party /im at storage (.*)/
+
+	call {
+		do c @go $.lastMatch1
+	}
+}
+
+
+
+automacro onStuckAtMosk {
+	console /Stuck at mosk_dun01/
+
+	call {
+		do tele
+	}
+}

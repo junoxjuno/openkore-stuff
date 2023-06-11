@@ -1,0 +1,137 @@
+##########
+# MOSCOVIA MACRO, DO NOT DELETE
+##########
+automacro onShipTalk {
+	console /Find#ship: Stop by the whale island?/
+
+	call {
+		do talk resp 0
+		release all
+	}
+}
+
+# ---- mosk_fild01 - mosk_fild02 -----
+automacro mfild02 {
+	location mosk_fild01
+	run-once 0
+	timeout 30
+	call mf02
+}
+macro mf02 {
+	do ai manual
+	do move 90 104
+	pause 2
+	do talknpc 86 104 c c r2 c c c r1 c c
+	do ai auto
+	release mfild02
+}
+
+
+automacro stuckMosc {
+	console /Calculating route to find master: mosk_dun01/
+	location moscovia 136 50
+	run-once 0
+	timeout 30
+	call {
+		do ai manual
+		do move moscovia 150 63
+		do move mosk_fild01
+		pause 15
+		do ai auto
+	}
+}
+
+#######
+# END MOSCOVIA MACRO
+#######
+
+
+automacro onAutoStorageLockMap {
+	console /Calculating auto-storage route to:/
+	location not moscovia
+
+	call {
+		do c @go mosc
+	}
+}
+
+
+automacro onAutoBuy {
+	console /Calculating auto-buy route to:/
+	location not morocc
+
+	call {
+		do c @go morocc
+	}
+}
+
+automacro onMoveLockMapMoc {
+	console /Calculating lockMap route to: Valley of/
+	location morocc
+	timeout 3
+
+	call {
+		do c @go niff
+	}
+}
+
+
+automacro onMoveLockMapMosk {
+	console /Calculating lockMap route to: Valley of/
+	location moscovia
+	timeout 3
+
+	call {
+		do c @go niff
+	}
+}
+automacro lowHPAtNiff {
+	hp < 2000
+	location nif_fild02
+	timeout 5
+
+	call {
+		pause 1
+		do c @go morocc
+		do talknpc 153 97
+	}
+}
+
+
+automacro lowSPAtNiff {
+	sp < 100
+	location nif_fild02
+	timeout 5
+
+	call {
+		pause 1
+		do c @go morocc
+		do talknpc 153 97
+	}
+}
+
+automacro deadAtNif {
+	console /You have died/
+	location nif_fild02
+	timeout 5
+
+	call {
+		do c @go morocc
+	}
+}
+
+
+automacro onNifFildEnter {
+	console /Portal Exists: nif_fild02 -> niflheim/
+	timeout 5
+	exclusive 1
+
+	call {
+		do ai manual
+		do move 374 236
+		pause 3
+		do e mp
+		do sm 46 0
+		do ai auto
+	}
+}

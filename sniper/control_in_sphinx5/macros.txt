@@ -1,0 +1,18 @@
+
+automacro onAutoStorageLockMap {
+	console /Calculating auto-storage route to:/
+	location not morocc
+
+	call {
+		do c @go morocc
+	}
+}
+
+automacro onAnubisAttack {
+	console /Anubis (.*) you/
+	location in_sphinx5
+
+	call {
+		do tele
+	}
+}

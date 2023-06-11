@@ -1,0 +1,54 @@
+automacro onUnableToDetermineAttack {
+	console /Unable to determine a attackMethod/
+
+	call {
+		do tele
+	}
+}
+
+
+automacro onStorageClose {
+	console /Storage closed./
+
+	call {
+		do conf storageAuto 0
+	}
+}
+
+
+automacro onAutoStorage {
+	console /Calculating auto-storage route to:/
+	map ein_fild09
+
+	call {
+		do c @go geffen
+	}
+}
+
+
+automacro onNoNPC {
+   console /Could not find an NPC at location (152,187)/
+   call {
+		do relog
+   }
+}
+
+automacro onCannotFindNPC {
+	console /Could not find an NPC at location/
+	timeout 60
+
+	call {
+		do relog
+	}
+}
+
+
+automacro onDied {
+	console /You have died/
+	timeout 60
+
+	call {
+		do c @go geffen
+	}
+}
+

@@ -1,0 +1,153 @@
+######### GEFFENIA ENTRY ###########
+automacro portalGeffeniaExists {
+	console /Portal Exists: geffen -> geffen/
+	location geffen
+	weight < 49%
+	inventory "Berserk Potion" > 0
+	timeout 15
+	exclusive 1
+
+	call entryGeff2
+}
+
+automacro portalGeffeniaOpen {
+	console /With a flash of light from Geffen Fountain, the door to Geffenia has opened/
+	location geffen
+	weight < 49%
+	timeout 15
+	exclusive 1
+
+	call entryGeff2
+}
+
+macro entryGeff2 {
+	$inStorage = @eval(AI::inQueue("storageAuto"))
+	$inBuy = @eval(AI::inQueue("buyAuto"))
+	if ($inStorage != 1 && $inBuy != 1) {
+		do storage close
+		do conf lockMap none
+		do c @go geffen
+		do talknpc 115 72 c
+		do move 119 55
+		do ai auto
+	} else {
+		stop
+	}
+
+}
+
+automacro atGef01 {
+	location gefenia01
+	timeout 30
+
+	call {
+		do conf lockMap gefenia01
+	}
+}
+
+automacro atGef02 {
+	location gefenia02
+	timeout 30
+
+	call {
+		do conf lockMap gefenia02
+	}
+}
+
+automacro atGef03 {
+	location gefenia03
+	timeout 30
+
+	call {
+		do conf lockMap gefenia03
+	}
+}
+
+automacro atGef04 {
+	location gefenia04
+	timeout 30
+
+	call {
+		do conf lockMap gefenia04
+	}
+}
+
+######### END GEFFENIA ENTRY ###########
+
+
+automacro onAutoStorageLockMap {
+	console /Calculating auto-storage route to:/
+	location not geffen
+
+	call {
+		do c @go geffen
+	}
+}
+
+
+automacro onAutoBuy {
+	console /Calculating auto-buy route to:/
+	location not geffen
+
+	call {
+		do c @go geffen
+	}
+}
+
+automacro onMoveLockMapMoc {
+	console /Calculating lockMap route to: Valley of/
+	location morocc
+	timeout 3
+
+	call {
+		do c @go niff
+	}
+}
+
+
+automacro onMoveLockMapMosk {
+	console /Calculating lockMap route to: Valley of/
+	location moscovia
+	timeout 3
+
+	call {
+		do c @go niff
+	}
+}
+automacro lowHPAtFight {
+	hp < 2000
+	location not geffen
+	timeout 5
+
+	call {
+		pause 1
+		do c @go geffen
+		do conf lockMap none
+		do talknpc 115 72
+	}
+}
+
+
+automacro lowSPAtNiff {
+	sp < 100
+	location not geffen
+	timeout 5
+
+	call {
+		pause 1
+		do c @go geffen
+		do conf lockMap none
+		do talknpc 115 72
+	}
+}
+
+automacro deadAtNif {
+	console /You have died/
+	location not geffen
+	timeout 5
+
+	call {
+		do c @go geffen
+		do conf lockMap none
+	}
+}

@@ -1,0 +1,41 @@
+automacro warp {
+    InMap geffen
+	CharCurrentWeight < 49%
+    InInventory "Blue Gemstone" > 49
+    timeout 15
+	StorageOpened 0
+    call warpAction
+}
+
+macro warpAction {
+	do e whisp
+	do ai manual
+	do ss 34
+	do ss 29
+	do ss Angelus
+
+	pause 1
+	do storage close
+	do c \@go geffen
+	do move 119 61
+	do talk 1
+	do sl 27 119 63
+	pause 2
+	do warp 1
+	pause 1
+	do talknpc 119 48 c r0
+	do move 119 63
+	do ai on
+}
+
+automacro goHome {
+    InMap yuno_fild06
+	CurrentSP < 10%
+    timeout 15
+	StorageOpened 0
+    call goHomeAction
+}
+
+macro goHomeAction {
+	do c \@go geffen
+}

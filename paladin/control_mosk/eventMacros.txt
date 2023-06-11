@@ -1,0 +1,32 @@
+automacro inMoskFild02 {
+	InMap mosk_fild02
+	timeout 120
+	call unfollowMaster
+}
+
+automacro lowSP {
+    InMap mosk_dun01
+	CurrentSP < 30%
+    timeout 60
+    call followMast
+}
+
+
+automacro highSP {
+    InMap mosk_dun01
+	CurrentSP > 50%
+    timeout 10
+    call unfollowMaster
+}
+
+
+macro followMast {
+	do g i am low on SP, following Mast
+	do conf followTarget Mast
+	do conf follow 1
+}
+
+macro unfollowMaster {
+	do conf followTarget none
+	do conf follow 0
+}

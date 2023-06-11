@@ -1,0 +1,8 @@
+automacro onLowSP {
+	sp < 30%
+	timeout 10
+
+	call {
+		do talknpc 115 72 c
+	}
+}

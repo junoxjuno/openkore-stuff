@@ -1,0 +1,32 @@
+automacro inLockSitAuto {
+    InLockMap 1
+    timeout 120
+    call {
+		do conf sitAuto_hp_lower 50
+		do conf sitAuto_hp_upper 90
+		do conf sitAuto_sp_lower 30
+		do conf sitAuto_sp_upper 90
+		do conf teleportAuto_hp 50
+	}
+}
+
+automacro notInLockSitAuto {
+    InLockMap 0
+    timeout 120
+    call {
+		do conf sitAuto_hp_lower 0
+		do conf sitAuto_hp_upper 0
+		do conf sitAuto_sp_lower 30
+		do conf sitAuto_sp_upper 90
+		do conf teleportAuto_hp 0
+	}
+}
+
+automacro autoBuyInTown {
+	InMap morocc
+	InInventory "Yellow Potion" < 25
+	timeout 30
+	call {
+		do autobuy
+	}
+}

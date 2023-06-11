@@ -1,0 +1,77 @@
+automacro warp {
+    InMap yuno
+	CharCurrentWeight <= 48%
+    InInventory "Stone Arrow" >= 100
+	InInventory "Great Nature" > 1
+    timeout 10
+	StorageOpened 0
+    call warpAction
+}
+
+automacro storageWhileWarp {
+	SimpleHookEvent AI_storage_auto_queued
+	CharCurrentWeight <= 48%
+    InInventory "Stone Arrow" > 100
+	InInventory "Great Nature" > 1
+	StorageOpened 0
+    timeout 10
+
+	call {
+		do eval AI::clear('storageAuto')
+		do c \@go yuno
+	}
+}
+
+macro warpAction {
+	do ai manual
+	do c \@go yuno
+	do move 158 55
+
+	do g warp me
+	pause 20
+	do e heh
+	do g i am ready
+	do ai auto
+}
+
+automacro goHome {
+    InMap ra_fild07
+	CurrentSP < 10%
+    timeout 15
+	StorageOpened 0
+    call goHomeAction
+}
+
+macro goHomeAction {
+	do c \@go yuno
+}
+
+automacro onRachelField {
+	InMap ra_fild07
+	timeout 15
+	call atRachelField
+}
+
+macro atRachelField {
+	do ai auto
+}
+
+
+automacro checkArrow {
+	CurrentSP > 1%
+	CharCurrentWeight < 49%
+    InInventory "Stone Arrow" <= 100
+	InInventory "Great Nature" > 0
+    timeout 15
+	StorageOpened 0
+    call craftArrow
+}
+
+macro craftArrow {
+	do ai manual
+	do ss 147
+	pause 1
+	do arrowcraft 0
+	do ai auto
+	do drop Flash Arrow
+}

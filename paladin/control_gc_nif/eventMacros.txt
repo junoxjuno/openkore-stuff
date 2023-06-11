@@ -1,0 +1,15 @@
+automacro warp {
+    InMap morocc
+	CurrentHP > 50%
+	CurrentSP > 50%
+    timeout 15
+	StorageOpened 0
+    call goAction
+}
+
+macro goAction {
+	do ai manual
+	pause 8
+	do c \@go niff
+	do ai auto
+}

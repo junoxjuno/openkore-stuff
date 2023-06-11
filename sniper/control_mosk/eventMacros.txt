@@ -1,0 +1,44 @@
+automacro notInLockMap {
+	InMap mosk_fild02,moscovia,morocc,prontera
+	timeout 120
+	call unfollowMaster
+}
+
+automacro lowSP {
+    InMap mosk_dun01
+	CurrentSP < 30%
+    timeout 60
+    call followMast
+}
+
+automacro lowHP {
+    InMap mosk_dun01
+	CurrentHP < 40%
+    timeout 60
+    call followMar
+}
+
+automacro highHPSP {
+    InMap mosk_dun01
+	CurrentHP > 50%
+	CurrentSP > 50%
+    timeout 10
+    call unfollowMaster
+}
+
+macro followMast {
+	do g i am low on SP, following Mast
+	do conf followTarget Mast
+	do conf follow 1
+}
+
+macro followMar {
+	do g i am low on HP, following Maroon
+	do conf followTarget Maroon
+	do conf follow 1
+}
+
+macro unfollowMaster {
+	do conf followTarget none
+	do conf follow 0
+}

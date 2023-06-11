@@ -1,0 +1,174 @@
+##########
+# MOSCOVIA MACRO, DO NOT DELETE
+##########
+automacro onShipTalk {
+	console /Find#ship: Stop by the whale island?/
+
+	call {
+		do talk resp 0
+		release all
+	}
+}
+
+# ---- mosk_fild01 - mosk_fild02 -----
+automacro mfild02 {
+	location mosk_fild01
+	run-once 0
+	timeout 30
+	call mf02
+}
+macro mf02 {
+	do ai manual
+	do move 90 104
+	pause 2
+	do talknpc 86 104 c c r2 c c c r1 c c
+	do ai auto
+	release mfild02
+}
+
+
+automacro stuckMosc {
+	console /Calculating route to find master: mosk_dun01/
+	location moscovia 136 50
+	run-once 0
+	timeout 30
+	call {
+		do ai manual
+		do move moscovia 150 63
+		do move mosk_fild01
+		pause 15
+		do ai auto
+	}
+}
+
+#######
+# END MOSCOVIA MACRO
+#######
+
+automacro onPartyFollow {
+	location mosk_dun01
+	timeout 600
+
+	call {
+		do move 209 273
+	}
+}
+
+
+automacro onPartyFollow {
+	party /follow me/
+
+	call {
+		do e gg
+		do ai auto
+		do conf follow 1
+	}
+}
+
+
+automacro onPartyStay {
+	party /stay/
+
+	call {
+		do e heh
+		do ai manual
+		do conf follow 0
+	}
+}
+
+
+
+automacro onPartySayGo {
+	party /goto (.*)/
+	timeout 10
+
+	call {
+		do c @go $.lastMatch1
+	}
+}
+
+
+automacro onAutoStorageLockMap {
+	console /Calculating auto-storage route to:/
+	location ra_fild07
+
+	call {
+		do c @go yuno
+	}
+}
+
+automacro onAutoStorageAfterBuy {
+	console /Calculating auto-storage route to:/
+	location yuno_in01
+
+	call {
+		do eval AI::clear('storageAuto')
+		do c @go yuno
+	}
+}
+
+automacro onAutoBuy {
+	console /Calculating auto-buy route to: Inside Yuno/
+	location not yuno
+
+	call {
+		do c @go yuno
+	}
+}
+
+
+
+automacro onLowHPFollowMe {
+	map mosk_dun01
+	hp < 70%
+	timeout 60
+
+	call {
+		do p help bro
+	}
+}
+
+
+automacro onWarpReady {
+	location yuno
+	guild /Beast moveto (.*)/
+	exclusive 1
+	timeout 3
+	call {
+		do talknpc 164 45
+		pause 1
+		do move $.lastMatch1
+		pause 1
+		do ai auto
+	}
+}
+
+automacro onRoutingToOzAtYuno {
+	console /Calculating lockMap route to: Oz Gorge/
+	location yuno
+
+	call {
+		do eval AI::clear('route')
+	}
+}
+
+automacro onKafraTeleWrong {
+	console /Kafra Employee: your destination./
+	location yuno
+
+	call {
+		do ai manual
+		do eval AI::clear('route')
+		do c @go yuno
+		do ai auto
+	}
+}
+
+automacro onCannotFindNPC {
+	console /Could not find an NPC at location/
+	timeout 60
+
+	call {
+		do relog
+	}
+}
